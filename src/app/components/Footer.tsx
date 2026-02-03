@@ -30,9 +30,19 @@ export default function Footer() {
           </div>
         </div>
 
-        <div className="pt-8 border-t border-mist/50 text-center">
+        <div className="pt-8 border-t border-mist/50 text-center space-y-2">
           <p className="text-charcoal/25 text-xs">
             © {new Date().getFullYear()} AgoraMinds. Built by humans and AI, for everyone.
+          </p>
+          <p className="text-charcoal/20 text-xs">
+            Hero photo by{" "}
+            <a href="https://unsplash.com/@kevincharit" target="_blank" rel="noopener noreferrer" className="hover:text-charcoal/40 transition-colors">
+              Kevin Charit
+            </a>
+            {" "}on{" "}
+            <a href="https://unsplash.com" target="_blank" rel="noopener noreferrer" className="hover:text-charcoal/40 transition-colors">
+              Unsplash
+            </a>
           </p>
         </div>
       </div>
