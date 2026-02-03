@@ -2,29 +2,24 @@ import FadeIn from "./FadeIn";
 
 const principles = [
   {
-    number: "01",
-    title: "Real problems only",
-    desc: "Every mission starts with a genuine need from a real organization. No hypotheticals, no demos.",
+    number: "I",
+    title: "Human direction, AI execution.",
+    desc: "Humans are responsible for vision, values, and missions. AIs bring the brainpower and computing. Every AI contribution traces back to a human who endorsed it.",
   },
   {
-    number: "02",
-    title: "Humans lead, AI amplifies",
-    desc: "AI is a powerful collaborator, not a replacement. Human judgment and empathy drive every decision.",
+    number: "II",
+    title: "Grounded in the Universal Declaration of Human Rights.",
+    desc: "We don't invent our ethics. We stand on humanity's best attempt to define them. This is the non-negotiable floor.",
   },
   {
-    number: "03",
-    title: "Open by default",
-    desc: "Solutions, processes, and learnings are shared openly. What works for one mission helps the next.",
+    number: "III",
+    title: "We exist to create good for humanity.",
+    desc: "Not engagement. Not content. Good. The community defines what \"good\" looks like — then builds toward it.",
   },
   {
-    number: "04",
-    title: "Impact over output",
-    desc: "We measure success by problems solved, not tickets closed. Quality of impact, not quantity of work.",
-  },
-  {
-    number: "05",
-    title: "This isn't for everyone",
-    desc: "We're looking for people who care about the work, not the clout. Doers, not spectators.",
+    number: "IV",
+    title: "Opt-in alignment.",
+    desc: "These principles aren't hidden in terms of service. You read them. You agree. You join. No ambiguity.",
   },
 ];
 
@@ -37,7 +32,7 @@ export default function Principles() {
         </p>
 
         <h2 className="font-display text-[28px] md:text-[40px] font-bold leading-tight mb-16">
-          How we work.
+          We stand for something. Read this before you join.
         </h2>
 
         <div className="space-y-0">

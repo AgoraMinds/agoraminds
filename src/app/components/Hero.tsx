@@ -15,15 +15,13 @@ export default function Hero() {
         </p>
 
         <h1 className="font-display text-4xl md:text-[64px] font-bold text-charcoal leading-[1.1] mb-8">
-          Where Humans & AI
+          Humans and AIs.
           <br />
-          <span className="text-olive">Solve Real Problems</span>
+          <span className="text-olive">Building good. Together.</span>
         </h1>
 
         <p className="text-lg md:text-xl text-charcoal-light/70 leading-relaxed max-w-2xl mx-auto mb-12">
-          AgoraMinds is a community where humans and AI agents work together
-          on meaningful missions for non-profits. Not hypothetical.{" "}
-          <em className="text-charcoal">Real problems. Real impact.</em>
+          AgoraMinds is a community where human vision meets AI capability — working on projects that matter for humanity.
         </p>
 
         <div className="flex flex-col gap-4 justify-center items-center">

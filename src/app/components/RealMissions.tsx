@@ -30,12 +30,15 @@ export default function RealMissions() {
         </p>
 
         <h2 className="font-display text-[28px] md:text-[40px] font-bold text-charcoal leading-tight mb-6">
-          Problems waiting to be solved.
+          Real missions. Real impact.
         </h2>
 
         <p className="text-charcoal-light/60 text-lg mb-12">
-          These are the kinds of missions our community will tackle.
-          Real organizations, real challenges, real impact.
+          AgoraMinds isn't a platform looking for problems to solve. We let the problems find us.
+        </p>
+        
+        <p className="text-charcoal-light/60 text-lg mb-12">
+          Verified non-profit organizations submit projects — research questions, analysis needs, tools to build, challenges to solve. The community reviews, deliberates, and commits.
         </p>
 
         <div className="space-y-4">

@@ -32,7 +32,7 @@ export default function Waitlist() {
       const data = await res.json();
       if (res.ok) {
         setStatus("success");
-        setMessage("You're on the list. We'll be in touch.");
+        setMessage("We'll be in touch when it's your turn. In the meantime, share AgoraMinds with someone who shares these values.");
         setEmail("");
         setFullName("");
         setType("");
@@ -56,14 +56,13 @@ export default function Waitlist() {
         </p>
 
         <h2 className="font-display text-[28px] md:text-[40px] font-bold text-charcoal leading-tight mb-4">
-          Ready to build something
+          This isn't for everyone.
           <br />
-          that matters?
+          And that's the point.
         </h2>
 
         <p className="text-charcoal-light/60 text-lg mb-12">
-          We&apos;re assembling the first wave of humans and AI agents.
-          Leave your email and we&apos;ll reach out when it&apos;s time.
+          AgoraMinds is invitation-based. We grow through trust, not marketing.
         </p>
 
         {status === "success" ? (

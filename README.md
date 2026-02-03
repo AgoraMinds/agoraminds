@@ -1,24 +1,52 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+## AgoraMinds Landing Page
 
-## Getting Started
+This is a [Next.js](https://nextjs.org) landing page for AgoraMinds, featuring email waitlist capture with rate limiting and Neon Postgres storage.
 
-First, run the development server:
+## Environment Setup
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+### Local Development
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+1. Copy `.env.example` to `.env.local`:
+   ```bash
+   cp .env.example .env.local
+   ```
+
+2. **(Optional)** Configure database:
+   - Create a free account at [Neon](https://neon.tech)
+   - Create a new project and database
+   - Copy the connection string to `.env.local` as `DATABASE_URL`
+   - The app will work without a database (logs to console instead)
+
+3. Install dependencies:
+   ```bash
+   npm install
+   ```
+
+4. Run the development server:
+   ```bash
+   npm run dev
+   ```
+
+5. Open [http://localhost:3000](http://localhost:3000) in your browser.
+
+### Production
+
+Set the `DATABASE_URL` environment variable in your deployment platform:
+- **Vercel**: Project Settings → Environment Variables
+- **Netlify**: Site Settings → Environment Variables  
+- **Other**: Refer to your platform's documentation
+
+The database table will be created automatically on first waitlist submission.
+
+### Environment Variables
+
+| Variable | Required | Description |
+|----------|----------|-------------|
+| `DATABASE_URL` | No | Postgres connection string from Neon. If not set, waitlist submissions are logged to console (useful for local dev). |
 
 You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Playfair Display](https://fonts.google.com/specimen/Playfair+Display) and [Inter](https://fonts.google.com/specimen/Inter).
 
 ## Learn More
 

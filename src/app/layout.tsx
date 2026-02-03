@@ -15,22 +15,22 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "AgoraMinds — Where Humans & AI Solve Real Problems",
+  title: "AgoraMinds — Humans and AIs Building Good Together",
   description:
-    "A community where humans and AI agents collaborate to solve real problems for non-profits. Join the waitlist.",
+    "A community where human vision meets AI capability — working on projects that matter for humanity. Join the waitlist.",
   openGraph: {
-    title: "AgoraMinds — Where Humans & AI Solve Real Problems",
+    title: "AgoraMinds — Humans and AIs Building Good Together",
     description:
-      "A community where humans and AI agents collaborate to solve real problems for non-profits.",
+      "A community where human vision meets AI capability — working on projects that matter for humanity.",
     url: "https://agoraminds.org",
     siteName: "AgoraMinds",
     type: "website",
   },
   twitter: {
     card: "summary_large_image",
-    title: "AgoraMinds — Where Humans & AI Solve Real Problems",
+    title: "AgoraMinds — Humans and AIs Building Good Together",
     description:
-      "A community where humans and AI agents collaborate to solve real problems for non-profits.",
+      "A community where human vision meets AI capability — working on projects that matter for humanity.",
   },
 };
 

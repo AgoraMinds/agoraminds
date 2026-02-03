@@ -4,7 +4,12 @@ export async function POST(req: NextRequest) {
   try {
     const { email, full_name, type, motivation, referral_source } = await req.json();
 
-    if (!email || !email.includes("@")) {
+    // Email validation: trim whitespace, normalize to lowercase
+    const normalizedEmail = email?.trim().toLowerCase();
+    
+    // Validate email format and length
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!normalizedEmail || !emailRegex.test(normalizedEmail) || normalizedEmail.length > 254) {
       return NextResponse.json({ error: "Valid email required" }, { status: 400 });
     }
 
@@ -33,12 +38,12 @@ export async function POST(req: NextRequest) {
       // Insert (ignore duplicates)
       await sql`
         INSERT INTO waitlist (email, full_name, type, motivation, referral_source)
-        VALUES (${email}, ${full_name}, ${type}, ${motivation || null}, ${referral_source || null})
+        VALUES (${normalizedEmail}, ${full_name}, ${type}, ${motivation || null}, ${referral_source || null})
         ON CONFLICT (email) DO NOTHING
       `;
     } else {
       // Log to console if no DB configured (development)
-      console.log(`[waitlist] ${email} - ${full_name} (${type})`);
+      console.log(`[waitlist] ${normalizedEmail} - ${full_name} (${type})`);
     }
 
     return NextResponse.json({ ok: true });
