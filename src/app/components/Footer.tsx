@@ -24,7 +24,7 @@ export default function Footer() {
             <a href="#principles" className="hover:text-charcoal transition-colors duration-300">
               Founding Principles
             </a>
-            <a href="mailto:hello@agoraminds.org" className="hover:text-charcoal transition-colors duration-300">
+            <a href="mailto:info@agoraminds.org" className="hover:text-charcoal transition-colors duration-300">
               Contact
             </a>
           </div>
