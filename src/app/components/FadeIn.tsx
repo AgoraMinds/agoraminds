@@ -6,9 +6,17 @@ interface FadeInProps {
   children: React.ReactNode;
   className?: string;
   delay?: number;
+  direction?: "up" | "down" | "left" | "right" | "none";
+  duration?: number;
 }
 
-export default function FadeIn({ children, className = "", delay = 0 }: FadeInProps) {
+export default function FadeIn({
+  children,
+  className = "",
+  delay = 0,
+  direction = "up",
+  duration = 700,
+}: FadeInProps) {
   const [isVisible, setIsVisible] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
 
@@ -34,12 +42,23 @@ export default function FadeIn({ children, className = "", delay = 0 }: FadeInPr
     };
   }, [delay]);
 
+  const transforms: Record<string, string> = {
+    up: "translate-y-6",
+    down: "-translate-y-6",
+    left: "translate-x-6",
+    right: "-translate-x-6",
+    none: "",
+  };
+
   return (
     <div
       ref={ref}
-      className={`transition-all duration-[600ms] ease-out ${
-        isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-5"
+      className={`transition-all ease-out ${
+        isVisible
+          ? "opacity-100 translate-x-0 translate-y-0"
+          : `opacity-0 ${transforms[direction]}`
       } ${className}`}
+      style={{ transitionDuration: `${duration}ms` }}
     >
       {children}
     </div>

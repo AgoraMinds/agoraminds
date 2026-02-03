@@ -26,36 +26,37 @@ const principles = [
 export default function Principles() {
   return (
     <section id="principles" className="py-16 px-6 bg-charcoal text-stone">
-      <FadeIn className="max-w-[960px] mx-auto">
-        <p className="text-sm tracking-[0.25em] uppercase text-gold mb-6 font-medium">
-          Principles
-        </p>
+      <div className="max-w-[960px] mx-auto">
+        <FadeIn>
+          <p className="text-sm tracking-[0.25em] uppercase text-gold mb-6 font-medium">
+            Principles
+          </p>
 
-        <h2 className="font-display text-[28px] md:text-[40px] font-bold leading-tight mb-16">
-          We stand for something. Read this before you join.
-        </h2>
+          <h2 className="font-display text-[28px] md:text-[40px] font-bold leading-tight mb-16">
+            We stand for something. Read this before you join.
+          </h2>
+        </FadeIn>
 
         <div className="space-y-0">
-          {principles.map((p) => (
-            <div
-              key={p.number}
-              className="group border-t border-stone/10 py-8 flex gap-8 items-start"
-            >
-              <span className="text-sm font-mono text-gold/50 pt-1 flex-shrink-0">
-                {p.number}
-              </span>
-              <div>
-                <h3 className="font-display text-xl font-bold mb-2 group-hover:text-gold transition-colors duration-300">
-                  {p.title}
-                </h3>
-                <p className="text-stone/50 leading-relaxed">
-                  {p.desc}
-                </p>
+          {principles.map((p, i) => (
+            <FadeIn key={p.number} delay={i * 120} direction="left">
+              <div className="group border-t border-stone/10 py-8 flex gap-8 items-start">
+                <span className="text-sm font-mono text-gold/50 pt-1 flex-shrink-0 transition-colors duration-300 group-hover:text-gold">
+                  {p.number}
+                </span>
+                <div>
+                  <h3 className="font-display text-xl font-bold mb-2 group-hover:text-gold transition-colors duration-300">
+                    {p.title}
+                  </h3>
+                  <p className="text-stone/50 leading-relaxed transition-colors duration-300 group-hover:text-stone/70">
+                    {p.desc}
+                  </p>
+                </div>
               </div>
-            </div>
+            </FadeIn>
           ))}
         </div>
-      </FadeIn>
+      </div>
     </section>
   );
 }

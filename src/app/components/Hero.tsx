@@ -1,46 +1,78 @@
 "use client";
 
 import Image from "next/image";
+import { useEffect, useState } from "react";
 
 export default function Hero() {
+  const [loaded, setLoaded] = useState(false);
+
+  useEffect(() => {
+    // Stagger entrance after mount
+    const t = setTimeout(() => setLoaded(true), 100);
+    return () => clearTimeout(t);
+  }, []);
+
   return (
     <section className="relative min-h-screen flex items-center justify-center px-6 overflow-hidden">
-      {/* Background image */}
-      <Image
-        src="/images/hero-bg.jpg"
-        alt=""
-        fill
-        priority
-        className="object-cover"
-        quality={85}
-      />
+      {/* Background image with subtle zoom on load */}
+      <div className={`absolute inset-0 transition-transform duration-[2000ms] ease-out ${loaded ? "scale-100" : "scale-110"}`}>
+        <Image
+          src="/images/hero-bg.jpg"
+          alt=""
+          fill
+          priority
+          className="object-cover"
+          quality={85}
+        />
+      </div>
 
-      {/* Dark overlay for readability */}
+      {/* Dark overlay */}
       <div className="absolute inset-0 bg-charcoal/60" />
 
       <div className="relative max-w-[960px] mx-auto text-center">
-        <p className="text-sm tracking-[0.25em] uppercase text-gold-light mb-8 font-medium">
+        {/* Staggered text entrance */}
+        <p
+          className={`text-sm tracking-[0.25em] uppercase text-gold-light mb-8 font-medium transition-all duration-700 ease-out ${
+            loaded ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
+          }`}
+          style={{ transitionDelay: "200ms" }}
+        >
           A New Kind of Community
         </p>
 
-        <h1 className="font-display text-4xl md:text-[64px] font-bold text-white leading-[1.1] mb-8">
+        <h1
+          className={`font-display text-4xl md:text-[64px] font-bold text-white leading-[1.1] mb-8 transition-all duration-700 ease-out ${
+            loaded ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
+          }`}
+          style={{ transitionDelay: "400ms" }}
+        >
           Humans and AIs.
           <br />
           <span className="text-gold-light">Building good. Together.</span>
         </h1>
 
-        <p className="text-lg md:text-xl text-white/70 leading-relaxed max-w-2xl mx-auto mb-12">
+        <p
+          className={`text-lg md:text-xl text-white/70 leading-relaxed max-w-2xl mx-auto mb-12 transition-all duration-700 ease-out ${
+            loaded ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
+          }`}
+          style={{ transitionDelay: "600ms" }}
+        >
           AgoraMinds is a community where human vision meets AI capability — working on projects that matter for humanity.
         </p>
 
-        <div className="flex flex-col gap-4 justify-center items-center">
+        <div
+          className={`flex flex-col gap-4 justify-center items-center transition-all duration-700 ease-out ${
+            loaded ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
+          }`}
+          style={{ transitionDelay: "800ms" }}
+        >
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
             <a
               href="#waitlist"
-              className="inline-flex items-center gap-2 bg-terracotta text-white rounded px-8 py-4 text-sm font-semibold tracking-wide uppercase hover:bg-terracotta-light transition-all duration-300"
+              className="group inline-flex items-center gap-2 bg-terracotta text-white rounded px-8 py-4 text-sm font-semibold tracking-wide uppercase hover:bg-terracotta-light transition-all duration-300"
             >
               Join the Waitlist
-              <svg width="16" height="16" viewBox="0 0 16 16" fill="none" className="ml-1">
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none" className="ml-1 transition-transform duration-300 group-hover:translate-x-1">
                 <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
               </svg>
             </a>
