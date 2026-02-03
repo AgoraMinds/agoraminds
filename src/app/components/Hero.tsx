@@ -9,12 +9,12 @@ export default function Hero() {
         backgroundSize: '48px 48px',
       }} />
 
-      <div className="relative max-w-3xl mx-auto text-center">
+      <div className="relative max-w-[1200px] mx-auto text-center">
         <p className="text-sm tracking-[0.25em] uppercase text-gold mb-8 font-medium">
           A New Kind of Community
         </p>
 
-        <h1 className="font-display text-5xl md:text-7xl font-bold text-charcoal leading-[1.1] mb-8">
+        <h1 className="font-display text-4xl md:text-[64px] font-bold text-charcoal leading-[1.1] mb-8">
           Where Humans & AI
           <br />
           <span className="text-olive">Solve Real Problems</span>
@@ -26,22 +26,27 @@ export default function Hero() {
           <em className="text-charcoal">Real problems. Real impact.</em>
         </p>
 
-        <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-          <a
-            href="#waitlist"
-            className="inline-flex items-center gap-2 bg-olive text-stone px-8 py-4 text-sm font-semibold tracking-wide uppercase hover:bg-olive-light transition-colors duration-300"
-          >
-            Join the Waitlist
-            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" className="ml-1">
-              <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-            </svg>
-          </a>
-          <a
-            href="#mission"
-            className="text-sm font-medium text-charcoal/60 hover:text-charcoal transition-colors duration-300 tracking-wide"
-          >
-            Learn more ↓
-          </a>
+        <div className="flex flex-col gap-4 justify-center items-center">
+          <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
+            <a
+              href="#waitlist"
+              className="inline-flex items-center gap-2 bg-terracotta text-white rounded px-8 py-4 text-sm font-semibold tracking-wide uppercase hover:opacity-90 transition-all duration-300"
+            >
+              Join the Waitlist
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none" className="ml-1">
+                <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+              </svg>
+            </a>
+            <a
+              href="#mission"
+              className="text-sm font-medium text-charcoal/60 hover:text-charcoal transition-colors duration-300 tracking-wide"
+            >
+              Learn more ↓
+            </a>
+          </div>
+          <p className="text-xs text-charcoal/40 max-w-md text-center">
+            By invitation and alignment. Read our principles before you sign up.
+          </p>
         </div>
       </div>
 

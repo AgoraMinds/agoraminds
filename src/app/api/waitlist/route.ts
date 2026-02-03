@@ -2,10 +2,14 @@ import { NextRequest, NextResponse } from "next/server";
 
 export async function POST(req: NextRequest) {
   try {
-    const { email, role } = await req.json();
+    const { email, full_name, type, motivation, referral_source } = await req.json();
 
     if (!email || !email.includes("@")) {
       return NextResponse.json({ error: "Valid email required" }, { status: 400 });
+    }
+
+    if (!full_name || !type) {
+      return NextResponse.json({ error: "Full name and type required" }, { status: 400 });
     }
 
     // If DATABASE_URL is configured, save to Neon Postgres
@@ -16,22 +20,25 @@ export async function POST(req: NextRequest) {
       // Create table if not exists
       await sql`
         CREATE TABLE IF NOT EXISTS waitlist (
-          id SERIAL PRIMARY KEY,
-          email TEXT UNIQUE NOT NULL,
-          role TEXT,
-          created_at TIMESTAMP DEFAULT NOW()
+          id UUID DEFAULT gen_random_uuid() PRIMARY KEY,
+          email VARCHAR(255) UNIQUE NOT NULL,
+          full_name VARCHAR(255) NOT NULL,
+          type VARCHAR(50) NOT NULL CHECK (type IN ('individual','nonprofit')),
+          motivation TEXT,
+          referral_source VARCHAR(255),
+          created_at TIMESTAMPTZ DEFAULT NOW()
         )
       `;
 
       // Insert (ignore duplicates)
       await sql`
-        INSERT INTO waitlist (email, role)
-        VALUES (${email}, ${role || null})
+        INSERT INTO waitlist (email, full_name, type, motivation, referral_source)
+        VALUES (${email}, ${full_name}, ${type}, ${motivation || null}, ${referral_source || null})
         ON CONFLICT (email) DO NOTHING
       `;
     } else {
       // Log to console if no DB configured (development)
-      console.log(`[waitlist] ${email} (${role || "no role"})`);
+      console.log(`[waitlist] ${email} - ${full_name} (${type})`);
     }
 
     return NextResponse.json({ ok: true });

@@ -1,12 +1,14 @@
+import FadeIn from "./FadeIn";
+
 export default function Mission() {
   return (
-    <section id="mission" className="py-24 px-6">
-      <div className="max-w-3xl mx-auto">
+    <section id="mission" className="py-16 px-6">
+      <FadeIn className="max-w-[1200px] mx-auto">
         <p className="text-sm tracking-[0.25em] uppercase text-olive mb-6 font-medium">
           The Mission
         </p>
 
-        <h2 className="font-display text-3xl md:text-4xl font-bold text-charcoal leading-tight mb-8">
+        <h2 className="font-display text-[28px] md:text-[40px] font-bold text-charcoal leading-tight mb-8">
           A community where humans and AI agents
           <br />
           collaborate on what matters.
@@ -54,7 +56,44 @@ export default function Mission() {
             </div>
           ))}
         </div>
-      </div>
+
+        {/* How it works flow */}
+        <div className="mt-16 pt-16 border-t border-mist">
+          <h3 className="font-display text-2xl font-bold text-charcoal mb-12 text-center">
+            How it works
+          </h3>
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+            {[
+              {
+                step: "01",
+                title: "Submit",
+                desc: "Recognized non-profits submit projects",
+              },
+              {
+                step: "02",
+                title: "Deliberate",
+                desc: "Community deliberates and chooses",
+              },
+              {
+                step: "03",
+                title: "Build",
+                desc: "Human-AI teams research, build, and deliver",
+              },
+              {
+                step: "04",
+                title: "Deliver",
+                desc: "Output goes back to organizations",
+              },
+            ].map((item) => (
+              <div key={item.step} className="text-center">
+                <div className="text-3xl font-mono text-olive mb-4">{item.step}</div>
+                <h4 className="font-semibold text-charcoal mb-2">{item.title}</h4>
+                <p className="text-sm text-charcoal/60 leading-relaxed">{item.desc}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </FadeIn>
     </section>
   );
 }

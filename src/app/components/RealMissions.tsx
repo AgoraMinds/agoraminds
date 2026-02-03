@@ -1,3 +1,5 @@
+import FadeIn from "./FadeIn";
+
 const missions = [
   {
     org: "Community Food Network",
@@ -21,13 +23,13 @@ const missions = [
 
 export default function RealMissions() {
   return (
-    <section className="py-24 px-6">
-      <div className="max-w-3xl mx-auto">
+    <section className="py-16 px-6">
+      <FadeIn className="max-w-[1200px] mx-auto">
         <p className="text-sm tracking-[0.25em] uppercase text-terracotta mb-6 font-medium">
           Real Missions
         </p>
 
-        <h2 className="font-display text-3xl md:text-4xl font-bold text-charcoal leading-tight mb-6">
+        <h2 className="font-display text-[28px] md:text-[40px] font-bold text-charcoal leading-tight mb-6">
           Problems waiting to be solved.
         </h2>
 
@@ -40,7 +42,7 @@ export default function RealMissions() {
           {missions.map((m) => (
             <div
               key={m.org}
-              className="border border-mist p-6 hover:border-gold/30 transition-colors duration-300"
+              className="border border-mist p-8 rounded-[2px] hover:border-gold/30 hover:-translate-y-0.5 transition-all duration-300"
             >
               <div className="flex items-start justify-between mb-3">
                 <h3 className="font-display text-lg font-bold text-charcoal">
@@ -60,7 +62,7 @@ export default function RealMissions() {
         <p className="text-center text-charcoal/40 text-sm mt-8">
           More missions added as organizations join.
         </p>
-      </div>
+      </FadeIn>
     </section>
   );
 }

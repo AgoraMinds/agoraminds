@@ -1,3 +1,5 @@
+import FadeIn from "./FadeIn";
+
 const principles = [
   {
     number: "01",
@@ -21,20 +23,20 @@ const principles = [
   },
   {
     number: "05",
-    title: "This isn&apos;t for everyone",
+    title: "This isn't for everyone",
     desc: "We're looking for people who care about the work, not the clout. Doers, not spectators.",
   },
 ];
 
 export default function Principles() {
   return (
-    <section className="py-24 px-6 bg-charcoal text-stone">
-      <div className="max-w-3xl mx-auto">
+    <section id="principles" className="py-16 px-6 bg-charcoal text-stone">
+      <FadeIn className="max-w-[1200px] mx-auto">
         <p className="text-sm tracking-[0.25em] uppercase text-gold mb-6 font-medium">
           Principles
         </p>
 
-        <h2 className="font-display text-3xl md:text-4xl font-bold leading-tight mb-16">
+        <h2 className="font-display text-[28px] md:text-[40px] font-bold leading-tight mb-16">
           How we work.
         </h2>
 
@@ -58,7 +60,7 @@ export default function Principles() {
             </div>
           ))}
         </div>
-      </div>
+      </FadeIn>
     </section>
   );
 }
