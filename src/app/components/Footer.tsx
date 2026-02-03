@@ -3,7 +3,7 @@ import AgoraLogo from "./illustrations/AgoraLogo";
 export default function Footer() {
   return (
     <footer className="py-16 px-6 border-t border-mist">
-      <div className="max-w-[1200px] mx-auto">
+      <div className="max-w-[960px] mx-auto">
         <div className="flex flex-col md:flex-row justify-between items-start gap-8 mb-12">
           <div className="text-center md:text-left max-w-2xl">
             <div className="flex items-center gap-2">

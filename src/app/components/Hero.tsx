@@ -18,7 +18,7 @@ export default function Hero() {
       {/* Dark overlay for readability */}
       <div className="absolute inset-0 bg-charcoal/60" />
 
-      <div className="relative max-w-[1200px] mx-auto text-center">
+      <div className="relative max-w-[960px] mx-auto text-center">
         <p className="text-sm tracking-[0.25em] uppercase text-gold-light mb-8 font-medium">
           A New Kind of Community
         </p>

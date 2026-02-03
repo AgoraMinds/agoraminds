@@ -24,7 +24,7 @@ const missions = [
 export default function RealMissions() {
   return (
     <section className="py-16 px-6">
-      <FadeIn className="max-w-[1200px] mx-auto">
+      <FadeIn className="max-w-[960px] mx-auto">
         <p className="text-sm tracking-[0.25em] uppercase text-terracotta mb-6 font-medium">
           Real Missions
         </p>

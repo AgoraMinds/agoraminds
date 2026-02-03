@@ -26,7 +26,7 @@ const principles = [
 export default function Principles() {
   return (
     <section id="principles" className="py-16 px-6 bg-charcoal text-stone">
-      <FadeIn className="max-w-[1200px] mx-auto">
+      <FadeIn className="max-w-[960px] mx-auto">
         <p className="text-sm tracking-[0.25em] uppercase text-gold mb-6 font-medium">
           Principles
         </p>
