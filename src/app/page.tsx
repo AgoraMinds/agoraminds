@@ -4,14 +4,12 @@ import Mission from "./components/Mission";
 import Principles from "./components/Principles";
 import Waitlist from "./components/Waitlist";
 import Footer from "./components/Footer";
+import ScrollProgress from "./components/ScrollProgress";
 
 export default function Home() {
   return (
     <main className="relative">
-      {/* Scroll progress indicator */}
-      <div className="fixed top-0 left-0 right-0 h-[2px] z-50">
-        <div className="scroll-progress h-full bg-gold/60" />
-      </div>
+      <ScrollProgress />
       <Hero />
       <Problem />
       <Mission />

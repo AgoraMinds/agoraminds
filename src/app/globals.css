@@ -66,13 +66,18 @@ input:focus, textarea:focus, select:focus {
   transition: border-color 0.3s ease, box-shadow 0.3s ease;
 }
 
-/* Scroll progress bar */
+/* Scroll progress bar — uses scroll-timeline where supported */
 @keyframes grow {
   from { transform: scaleX(0); }
   to { transform: scaleX(1); }
 }
 .scroll-progress {
-  animation: grow auto linear;
-  animation-timeline: scroll();
   transform-origin: left;
+  transform: scaleX(0);
+}
+@supports (animation-timeline: scroll()) {
+  .scroll-progress {
+    animation: grow auto linear;
+    animation-timeline: scroll();
+  }
 }
