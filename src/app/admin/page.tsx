@@ -21,55 +21,68 @@ export default function AdminPage() {
   const [total, setTotal] = useState(0);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
+  const [checking, setChecking] = useState(true);
 
+  // Check if we already have a valid session cookie
   useEffect(() => {
-    const stored = sessionStorage.getItem("admin_password");
-    if (stored) {
-      setPassword(stored);
-      fetchData(stored);
-    }
+    fetchData().finally(() => setChecking(false));
   }, []);
 
-  async function fetchData(pw: string) {
-    setLoading(true);
-    setError("");
+  async function fetchData() {
     try {
-      const res = await fetch("/api/admin/waitlist", {
-        headers: { "x-admin-password": pw },
-      });
+      const res = await fetch("/api/admin/waitlist", { credentials: "include" });
       if (res.status === 401) {
-        setError("Wrong password");
         setAuthenticated(false);
-        sessionStorage.removeItem("admin_password");
-        setLoading(false);
         return;
       }
       if (!res.ok) {
         const errData = await res.json().catch(() => ({}));
         setError(errData.error || `Server error (${res.status})`);
-        setLoading(false);
         return;
       }
       const data = await res.json();
       setEntries(data.entries || []);
       setTotal(data.total || 0);
       setAuthenticated(true);
-      sessionStorage.setItem("admin_password", pw);
+    } catch {
+      setError("Connection failed");
+    }
+  }
+
+  async function handleLogin(e: React.FormEvent) {
+    e.preventDefault();
+    setLoading(true);
+    setError("");
+    try {
+      const res = await fetch("/api/admin/login", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ password }),
+        credentials: "include",
+      });
+      if (res.status === 401) {
+        setError("Wrong password");
+        setLoading(false);
+        return;
+      }
+      if (!res.ok) {
+        setError("Login failed");
+        setLoading(false);
+        return;
+      }
+      // Session cookie is set — now fetch data
+      setPassword("");
+      await fetchData();
     } catch {
       setError("Connection failed");
     }
     setLoading(false);
   }
 
-  function handleLogin(e: React.FormEvent) {
-    e.preventDefault();
-    fetchData(password);
-  }
-
-  function handleLogout() {
-    sessionStorage.removeItem("admin_password");
+  async function handleLogout() {
+    // Clear the cookie by requesting with expired maxAge (or just reload)
+    document.cookie = "admin_session=; path=/; max-age=0";
     setAuthenticated(false);
-    setPassword("");
     setEntries([]);
   }
 
@@ -89,6 +102,14 @@ export default function AdminPage() {
     a.click();
   }
 
+  if (checking) {
+    return (
+      <div className="min-h-screen bg-stone flex items-center justify-center">
+        <p className="text-charcoal/40">Loading…</p>
+      </div>
+    );
+  }
+
   if (!authenticated) {
     return (
       <div className="min-h-screen bg-stone flex items-center justify-center px-6">
@@ -101,6 +122,7 @@ export default function AdminPage() {
             onChange={e => setPassword(e.target.value)}
             placeholder="Password"
             autoFocus
+            autoComplete="current-password"
             className="w-full px-4 py-4 bg-transparent border-b border-charcoal text-charcoal placeholder:text-charcoal/30 focus:outline-none focus:border-terracotta focus:border-b-2 transition-all duration-300 text-base mb-4"
           />
           {error && <p className="text-terracotta text-sm mb-4">{error}</p>}
@@ -131,7 +153,7 @@ export default function AdminPage() {
           </div>
           <div className="flex gap-3">
             <button
-              onClick={() => fetchData(password)}
+              onClick={() => fetchData()}
               className="text-sm px-4 py-2 border border-mist rounded hover:border-charcoal/30 transition-colors text-charcoal/60 hover:text-charcoal"
             >
               ↻ Refresh

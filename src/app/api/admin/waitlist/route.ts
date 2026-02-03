@@ -1,16 +1,19 @@
 import { NextRequest, NextResponse } from "next/server";
-import crypto from "crypto";
+import { adminSessions } from "../login/route";
 
-function verifyPassword(input: string, expected: string): boolean {
-  // Constant-time comparison via SHA-256 hashing (handles different lengths safely)
-  const hash = (s: string) => crypto.createHash("sha256").update(s).digest();
-  return crypto.timingSafeEqual(hash(input), hash(expected));
+function isValidSession(req: NextRequest): boolean {
+  const token = req.cookies.get("admin_session")?.value;
+  if (!token) return false;
+  const expiry = adminSessions.get(token);
+  if (!expiry || Date.now() > expiry) {
+    if (token) adminSessions.delete(token);
+    return false;
+  }
+  return true;
 }
 
 export async function GET(req: NextRequest) {
-  const password = req.headers.get("x-admin-password");
-
-  if (!password || !process.env.ADMIN_PASSWORD || !verifyPassword(password, process.env.ADMIN_PASSWORD)) {
+  if (!isValidSession(req)) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
 

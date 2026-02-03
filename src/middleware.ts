@@ -69,5 +69,5 @@ export function middleware(req: NextRequest) {
 }
 
 export const config = {
-  matcher: ["/api/waitlist", "/api/admin/:path*"],
+  matcher: ["/api/waitlist", "/api/admin/:path*", "/admin"],
 };
