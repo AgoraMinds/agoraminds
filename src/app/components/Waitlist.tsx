@@ -7,6 +7,7 @@ export default function Waitlist() {
   const [email, setEmail] = useState("");
   const [fullName, setFullName] = useState("");
   const [type, setType] = useState("");
+  const [organizationName, setOrganizationName] = useState("");
   const [motivation, setMotivation] = useState("");
   const [referralSource, setReferralSource] = useState("");
   const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
@@ -21,21 +22,25 @@ export default function Waitlist() {
       const res = await fetch("/api/waitlist", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ 
-          email, 
-          full_name: fullName, 
-          type, 
-          motivation: motivation || null, 
-          referral_source: referralSource || null 
+        body: JSON.stringify({
+          email,
+          full_name: fullName,
+          type,
+          organization_name: type === "nonprofit" ? organizationName || null : null,
+          motivation: motivation || null,
+          referral_source: referralSource || null,
         }),
       });
       const data = await res.json();
       if (res.ok) {
         setStatus("success");
-        setMessage("We'll be in touch when it's your turn. In the meantime, share AgoraMinds with someone who shares these values.");
+        setMessage(
+          "We\u2019ll be in touch when it\u2019s your turn. In the meantime, share AgoraMinds with someone who shares these values."
+        );
         setEmail("");
         setFullName("");
         setType("");
+        setOrganizationName("");
         setMotivation("");
         setReferralSource("");
       } else {
@@ -56,9 +61,9 @@ export default function Waitlist() {
         </p>
 
         <h2 className="font-display text-[28px] md:text-[40px] font-bold text-charcoal leading-tight mb-4">
-          This isn't for everyone.
+          This isn&apos;t for everyone.
           <br />
-          And that's the point.
+          And that&apos;s the point.
         </h2>
 
         <p className="text-charcoal-light/60 text-lg mb-12">
@@ -71,43 +76,42 @@ export default function Waitlist() {
             <p className="font-display text-xl text-olive font-bold">{message}</p>
           </div>
         ) : (
-          <form onSubmit={handleSubmit} className="space-y-6">
-            <input
-              type="text"
-              value={fullName}
-              onChange={(e) => setFullName(e.target.value)}
-              placeholder="Full name"
-              required
-              className="w-full px-4 py-4 bg-transparent border-b border-charcoal text-charcoal placeholder:text-charcoal/30 focus:outline-none focus:border-terracotta focus:border-b-2 transition-all duration-300 text-base"
-            />
-
-            <input
-              type="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              placeholder="Your email"
-              required
-              className="w-full px-4 py-4 bg-transparent border-b border-charcoal text-charcoal placeholder:text-charcoal/30 focus:outline-none focus:border-terracotta focus:border-b-2 transition-all duration-300 text-base"
-            />
-
+          <form onSubmit={handleSubmit} className="space-y-6 text-left">
+            {/* Type selection — first, drives the rest of the form */}
             <div className="space-y-3">
               <label className="block text-xs uppercase tracking-wider text-charcoal font-medium">
                 I am a: <span className="text-terracotta">*</span>
               </label>
-              <div className="space-y-2">
-                <label className="flex items-center gap-3 cursor-pointer">
+              <div className="flex gap-4">
+                <label
+                  className={`flex-1 flex items-center justify-center gap-2 py-4 px-4 border cursor-pointer transition-all duration-300 rounded ${
+                    type === "individual"
+                      ? "border-terracotta bg-terracotta/5 text-charcoal"
+                      : "border-charcoal/20 text-charcoal/50 hover:border-charcoal/40"
+                  }`}
+                >
                   <input
                     type="radio"
                     name="type"
                     value="individual"
                     checked={type === "individual"}
-                    onChange={(e) => setType(e.target.value)}
+                    onChange={(e) => {
+                      setType(e.target.value);
+                      setOrganizationName("");
+                    }}
                     required
-                    className="w-4 h-4 text-terracotta focus:ring-terracotta"
+                    className="sr-only"
                   />
-                  <span className="text-charcoal">Individual contributor</span>
+                  <span className="text-lg">🧑</span>
+                  <span className="text-sm font-medium">Human contributor</span>
                 </label>
-                <label className="flex items-center gap-3 cursor-pointer">
+                <label
+                  className={`flex-1 flex items-center justify-center gap-2 py-4 px-4 border cursor-pointer transition-all duration-300 rounded ${
+                    type === "nonprofit"
+                      ? "border-terracotta bg-terracotta/5 text-charcoal"
+                      : "border-charcoal/20 text-charcoal/50 hover:border-charcoal/40"
+                  }`}
+                >
                   <input
                     type="radio"
                     name="type"
@@ -115,39 +119,82 @@ export default function Waitlist() {
                     checked={type === "nonprofit"}
                     onChange={(e) => setType(e.target.value)}
                     required
-                    className="w-4 h-4 text-terracotta focus:ring-terracotta"
+                    className="sr-only"
                   />
-                  <span className="text-charcoal">Non-profit</span>
+                  <span className="text-lg">🌍</span>
+                  <span className="text-sm font-medium">Non-profit organization</span>
                 </label>
               </div>
             </div>
 
-            <textarea
-              value={motivation}
-              onChange={(e) => setMotivation(e.target.value)}
-              placeholder="What draws you to AgoraMinds? (optional)"
-              rows={4}
-              className="w-full px-4 py-4 bg-transparent border-b border-charcoal text-charcoal placeholder:text-charcoal/30 focus:outline-none focus:border-terracotta focus:border-b-2 transition-all duration-300 text-base resize-none"
-            />
+            {/* Conditional fields based on type */}
+            {type && (
+              <div className="space-y-6 animate-fadeIn">
+                <input
+                  type="text"
+                  value={fullName}
+                  onChange={(e) => setFullName(e.target.value)}
+                  placeholder={type === "nonprofit" ? "Your name (contact person)" : "Full name"}
+                  required
+                  className="w-full px-4 py-4 bg-transparent border-b border-charcoal text-charcoal placeholder:text-charcoal/30 focus:outline-none focus:border-terracotta focus:border-b-2 transition-all duration-300 text-base"
+                />
 
-            <input
-              type="text"
-              value={referralSource}
-              onChange={(e) => setReferralSource(e.target.value)}
-              placeholder="How did you hear about us? (optional)"
-              className="w-full px-4 py-4 bg-transparent border-b border-charcoal text-charcoal placeholder:text-charcoal/30 focus:outline-none focus:border-terracotta focus:border-b-2 transition-all duration-300 text-base"
-            />
+                <input
+                  type="email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  placeholder="Email address"
+                  required
+                  className="w-full px-4 py-4 bg-transparent border-b border-charcoal text-charcoal placeholder:text-charcoal/30 focus:outline-none focus:border-terracotta focus:border-b-2 transition-all duration-300 text-base"
+                />
 
-            <button
-              type="submit"
-              disabled={status === "loading"}
-              className="w-full bg-terracotta text-white rounded px-8 py-4 text-sm font-semibold tracking-wide uppercase hover:opacity-90 transition-all duration-300 disabled:opacity-50"
-            >
-              {status === "loading" ? "Joining…" : "Join the Waitlist"}
-            </button>
+                {type === "nonprofit" && (
+                  <input
+                    type="text"
+                    value={organizationName}
+                    onChange={(e) => setOrganizationName(e.target.value)}
+                    placeholder="Organization name"
+                    required
+                    className="w-full px-4 py-4 bg-transparent border-b border-charcoal text-charcoal placeholder:text-charcoal/30 focus:outline-none focus:border-terracotta focus:border-b-2 transition-all duration-300 text-base"
+                  />
+                )}
 
-            {status === "error" && (
-              <p className="text-terracotta text-sm">{message}</p>
+                <textarea
+                  value={motivation}
+                  onChange={(e) => setMotivation(e.target.value)}
+                  placeholder={
+                    type === "nonprofit"
+                      ? "Describe the project or challenge you need help with (optional)"
+                      : "What draws you to AgoraMinds? (optional)"
+                  }
+                  rows={3}
+                  className="w-full px-4 py-4 bg-transparent border-b border-charcoal text-charcoal placeholder:text-charcoal/30 focus:outline-none focus:border-terracotta focus:border-b-2 transition-all duration-300 text-base resize-none"
+                />
+
+                <input
+                  type="text"
+                  value={referralSource}
+                  onChange={(e) => setReferralSource(e.target.value)}
+                  placeholder="How did you hear about us? (optional)"
+                  className="w-full px-4 py-4 bg-transparent border-b border-charcoal text-charcoal placeholder:text-charcoal/30 focus:outline-none focus:border-terracotta focus:border-b-2 transition-all duration-300 text-base"
+                />
+
+                <button
+                  type="submit"
+                  disabled={status === "loading"}
+                  className="w-full bg-terracotta text-white rounded px-8 py-4 text-sm font-semibold tracking-wide uppercase hover:opacity-90 transition-all duration-300 disabled:opacity-50"
+                >
+                  {status === "loading"
+                    ? "Joining…"
+                    : type === "nonprofit"
+                    ? "Submit Your Organization"
+                    : "Join the Waitlist"}
+                </button>
+
+                {status === "error" && (
+                  <p className="text-terracotta text-sm text-center">{message}</p>
+                )}
+              </div>
             )}
           </form>
         )}

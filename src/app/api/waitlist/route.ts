@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 
 export async function POST(req: NextRequest) {
   try {
-    const { email, full_name, type, motivation, referral_source } = await req.json();
+    const { email, full_name, type, organization_name, motivation, referral_source } = await req.json();
 
     // Email validation: trim whitespace, normalize to lowercase
     const normalizedEmail = email?.trim().toLowerCase();
@@ -37,6 +37,15 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: "Referral source too long" }, { status: 400 });
     }
 
+    // Validate organization name for nonprofits
+    const trimmedOrgName = organization_name?.trim() || null;
+    if (trimmedType === "nonprofit" && !trimmedOrgName) {
+      return NextResponse.json({ error: "Organization name required for non-profits" }, { status: 400 });
+    }
+    if (trimmedOrgName && trimmedOrgName.length > 255) {
+      return NextResponse.json({ error: "Organization name too long" }, { status: 400 });
+    }
+
     // If DATABASE_URL is configured, save to Neon Postgres
     if (process.env.DATABASE_URL) {
       const { neon } = await import("@neondatabase/serverless");
@@ -44,8 +53,8 @@ export async function POST(req: NextRequest) {
 
       // Insert (ignore duplicates) — table created via migration, not on every request
       await sql`
-        INSERT INTO waitlist (email, full_name, type, motivation, referral_source)
-        VALUES (${normalizedEmail}, ${trimmedName}, ${trimmedType}, ${trimmedMotivation}, ${trimmedReferral})
+        INSERT INTO waitlist (email, full_name, type, organization_name, motivation, referral_source)
+        VALUES (${normalizedEmail}, ${trimmedName}, ${trimmedType}, ${trimmedOrgName}, ${trimmedMotivation}, ${trimmedReferral})
         ON CONFLICT (email) DO NOTHING
       `;
     } else {
