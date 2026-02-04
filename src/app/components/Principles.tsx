@@ -40,15 +40,15 @@ export default function Principles() {
         <div className="space-y-0">
           {principles.map((p, i) => (
             <FadeIn key={p.number} delay={i * 120} direction="left">
-              <div className="group border-t border-stone/10 py-8 flex gap-8 items-start">
-                <span className="text-sm font-mono text-gold/50 pt-1 flex-shrink-0 transition-colors duration-300 group-hover:text-gold">
+              <div className="group border-t border-stone/10 py-8 flex gap-8 items-start hover:bg-stone/5 focus-within:bg-stone/5 rounded-sm transition-colors duration-300">
+                <span className="text-sm font-mono text-gold/60 pt-1 flex-shrink-0 transition-colors duration-300 group-hover:text-gold group-focus-within:text-gold">
                   {p.number}
                 </span>
                 <div>
-                  <h3 className="font-display text-xl font-bold mb-2 group-hover:text-gold transition-colors duration-300">
+                  <h3 className="font-display text-xl font-bold mb-2 group-hover:text-gold group-focus-within:text-gold transition-colors duration-300">
                     {p.title}
                   </h3>
-                  <p className="text-stone/50 leading-relaxed transition-colors duration-300 group-hover:text-stone/70">
+                  <p className="text-stone/60 leading-relaxed transition-colors duration-300 group-hover:text-stone/80 group-focus-within:text-stone/80">
                     {p.desc}
                   </p>
                 </div>

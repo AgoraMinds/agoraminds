@@ -5,17 +5,21 @@ import Principles from "./components/Principles";
 import Waitlist from "./components/Waitlist";
 import Footer from "./components/Footer";
 import ScrollProgress from "./components/ScrollProgress";
+import StickyNav from "./components/StickyNav";
 
 export default function Home() {
   return (
-    <main className="relative">
+    <>
       <ScrollProgress />
-      <Hero />
-      <Problem />
-      <Mission />
-      <Principles />
-      <Waitlist />
+      <StickyNav />
+      <main id="main-content" className="relative">
+        <Hero />
+        <Problem />
+        <Mission />
+        <Principles />
+        <Waitlist />
+      </main>
       <Footer />
-    </main>
+    </>
   );
 }

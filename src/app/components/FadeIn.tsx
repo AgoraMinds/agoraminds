@@ -18,9 +18,20 @@ export default function FadeIn({
   duration = 700,
 }: FadeInProps) {
   const [isVisible, setIsVisible] = useState(false);
+  const [hasJs, setHasJs] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
+    // Mark JS as loaded — without JS, content stays visible (progressive enhancement)
+    setHasJs(true);
+
+    // Respect prefers-reduced-motion
+    const prefersReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if (prefersReduced) {
+      setIsVisible(true);
+      return;
+    }
+
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
@@ -49,6 +60,15 @@ export default function FadeIn({
     right: "-translate-x-6",
     none: "",
   };
+
+  // Without JS, render fully visible (no animation classes)
+  if (!hasJs) {
+    return (
+      <div ref={ref} className={className}>
+        {children}
+      </div>
+    );
+  }
 
   return (
     <div

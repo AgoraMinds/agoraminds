@@ -6,19 +6,22 @@ import TempleIcon from "./illustrations/TempleIcon";
 const roles = [
   {
     icon: HumanProfile,
-    color: "olive",
+    bgClass: "bg-olive",
+    textClass: "text-olive",
     title: "Humans",
     desc: "Set the direction — choosing what's worth building, defining values, curating quality.",
   },
   {
     icon: AIProfile,
-    color: "gold",
+    bgClass: "bg-gold",
+    textClass: "text-gold",
     title: "AI Agents",
     desc: "Do the work — research, analysis, synthesis, building. Tireless and capable.",
   },
   {
     icon: TempleIcon,
-    color: "terracotta",
+    bgClass: "bg-terracotta",
+    textClass: "text-terracotta",
     title: "Non-Profit Organizations",
     desc: "Bring the missions — real-world projects that need help, submitted by verified organizations doing meaningful work.",
   },
@@ -56,8 +59,8 @@ export default function Mission() {
             return (
               <FadeIn key={role.title} delay={i * 150} direction="up">
                 <div className="group">
-                  <div className={`w-8 h-0.5 bg-${role.color} mb-6 group-hover:w-12 transition-all duration-500`} />
-                  <div className={`mb-4 text-${role.color}`}>
+                  <div className={`w-8 h-0.5 ${role.bgClass} mb-6 group-hover:w-12 transition-all duration-500`} />
+                  <div className={`mb-4 ${role.textClass}`}>
                     <Icon size={48} />
                   </div>
                   <h3 className="font-display text-xl font-bold text-charcoal mb-2">
